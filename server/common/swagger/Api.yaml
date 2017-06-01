@@ -1,0 +1,112 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: SimpleApiNode
+  description: Simple Chatter endpoint in NodeJS
+basePath: /api/v1
+tags:
+  - name: Chatter
+    description: Simple messaging endpoints for Chatter
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+definitions:
+  ExampleBody:
+    type: object
+    title: example
+    required:
+      - message
+    properties:
+      message:
+        type: string
+        description: The example message
+  ExampleEntities:
+    type: object
+    title: example
+    properties:
+      location:
+        type: string
+        description: The default location for the sample
+        default: Singapore
+  ExampleMessage:
+    type: object
+    title: message
+    required:
+      - requestID
+      - name
+      - text
+    properties:
+      requestID:
+        type: string
+        description: The request GUID
+        default: c10c81ab-b06c-43d8-a635-3ce928f029df
+      name:
+        type: string
+        description: The name of the agent
+        default: property_search
+      text:
+        type: string
+        description: The actual raw message sent to the parser
+        default: find me an apartment in Singapore
+      entities:
+        type: object
+        description: The dictionary of entities parsed
+        schema:
+          $ref: "#/definitions/ExampleEntities"
+      endpointParams:
+        type: object
+        description: A dictionary of key and value pairs to be sent as params in the POST
+
+paths:
+  /messages:
+    get:
+      tags:
+        - ChatbotService
+      description: Fetch all messages
+      responses:
+        200:
+          description: Returns all messages
+
+  /messages/send:
+    post:
+      tags:
+        - ChatbotService
+      description: Send a new message
+      parameters:
+        - name: message
+          in: body
+          description: Unique ID for this request
+          required: true
+          schema:
+            $ref: "#/definitions/ExampleMessage"
+      responses:
+        200:
+          description: Returns the posted message
+
+  /messages/{id}:
+    get:
+      tags:
+        - ChatbotService
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the entity to retrieve
+          type: integer
+      responses:
+        200:
+          description: Return the example with the specified id
+        404:
+          description: Example not
+
+  /analytics:
+    get:
+      tags:
+        - AnalyticsService
+      description: Fetch all analytics data
+      responses:
+        200:
+          description: Returns all data values
