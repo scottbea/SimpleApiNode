@@ -110,3 +110,25 @@ paths:
       responses:
         200:
           description: Returns all data values
+
+  /reservations/{id}:
+    get:
+      tags:
+        - ReservationService
+      description: Get a reservation by a reservation number
+      parameters:
+        - name: id
+          in: path
+          description: Reservation number to retrieve
+          required: true
+          type: string
+        - name: key
+          in: query
+          required: true
+          description: Developer API Key
+          type: string
+      responses:
+        200:
+          description: Returns the reservation data as JSON
+        404:
+          description: Reservation not found
