@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  version: 1.0.0
+  version: 0.1.0
   title: SimpleApiNode
   description: Simple Chatter endpoint in NodeJS
 basePath: /api/v1
@@ -54,8 +54,6 @@ definitions:
       entities:
         type: object
         description: The dictionary of entities parsed
-        schema:
-          $ref: "#/definitions/ExampleEntities"
       endpointParams:
         type: object
         description: A dictionary of key and value pairs to be sent as params in the POST
